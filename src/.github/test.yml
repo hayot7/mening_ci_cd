@@ -1,0 +1,30 @@
+name: Test
+on: push
+jobs:
+  lint:
+    runs-on: ubunty-latest
+    steps:
+    - name: Checkout
+      uses: actions/Checkout@v4
+    - name: install
+      run: npm ci
+    - name: lint
+      run: npm run lint
+  Test:
+    needs: [lint]
+    strategy:
+      matrix:
+        node: [18, 20, 22]
+    runs-0n: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node:-version: ${{matrix.node}}
+      - name: install
+        run: npm ci
+      - name: Test
+        env:
+          PORT: ${{secrets.PORT}}
+        run: npm run test
