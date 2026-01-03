@@ -31,12 +31,12 @@ jobs:
           ssh $USER@$HOST << EOF
             set -e
 
-            if [ ! -d "\$APP_DIR" ]; then
-              mkdir -p "\$APP_DIR"
-              git clone https://github.com/hayot7/mening_ci_cd.git "\$APP_DIR"
+            if [ ! -d "$APP_DIR" ]; then
+              mkdir -p "$APP_DIR"
+              git clone https://github.com/muhammadaliteacher/xn_3_ci_cd_deploy.git "$APP_DIR"
             fi
 
-            cd "\$APP_DIR"
+            cd "$APP_DIR"
 
             if [ ! -d .git ]; then
               echo "❌ Repo not cloned properly. Aborting."
@@ -45,7 +45,7 @@ jobs:
 
             git pull origin main
 
-            echo "PORT=\$PORT" > .env
+            echo "PORT=$PORT" > .env
             npm install
             npm run build
 
